@@ -1,5 +1,6 @@
-const { app, BrowserWindow, shell, Menu } = require('electron');
+const { app, BrowserWindow, shell, Menu, ipcMain, dialog } = require('electron');
 const path = require('path');
+const fs = require('fs');
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -108,6 +109,29 @@ function buildMenu() {
 app.whenReady().then(() => {
   buildMenu();
   createWindow();
+
+  ipcMain.on('toMain', async (event, args) => {
+    if (args && args.action === 'save-as-pdf') {
+      const winToPrint = BrowserWindow.fromWebContents(event.sender);
+      if (!winToPrint) return;
+      try {
+        const { filePath } = await dialog.showSaveDialog(winToPrint, {
+          title: 'Save Contract PDF',
+          defaultPath: args.filename || 'VisualX_Service_Agreement.pdf',
+          filters: [{ name: 'PDF Document', extensions: ['pdf'] }]
+        });
+        if (filePath) {
+          const pdfBuffer = await winToPrint.webContents.printToPDF({
+            printBackground: true,
+            pageSize: 'A4'
+          });
+          fs.writeFileSync(filePath, pdfBuffer);
+        }
+      } catch (err) {
+        console.error('Failed to export PDF:', err);
+      }
+    }
+  });
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();

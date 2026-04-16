@@ -73,11 +73,21 @@
   font-family: 'Georgia', 'Times New Roman', serif;
   font-size: 11.5pt;
   line-height: 1.9;
-  /* All body text justified by default */
   text-align: justify;
   hyphens: auto;
   -webkit-hyphens: auto;
   word-spacing: 0.02em;
+}
+
+/* ── Applied strictly during html2pdf capture ── */
+.cpr-pdf-export-mode {
+  padding: 0 !important;
+  margin: 0 auto !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  max-width: 700px !important;
+  width: 700px !important;
+  font-size: 11pt !important;
 }
 
 /* ── Document Header (logo + ref) ────────────────────────────── */
@@ -253,14 +263,15 @@
 
 /* ── Signature Grid ──────────────────────────────────────────── */
 .doc-sig-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: space-between;
   gap: 36px;
   margin-top: 36px;
   page-break-inside: avoid;
 }
 
 .doc-sig-block {
+  flex: 1;
   border: 1px solid #bbbbbb;
   border-radius: 3px;
   padding: 22px;
@@ -312,13 +323,14 @@
 }
 
 .doc-sig-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: space-between;
   gap: 14px;
   margin-top: 12px;
 }
 
 .doc-sig-field {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -402,10 +414,16 @@
    PRINT / PDF STYLES
    ══════════════════════════════════════════════════════════════ */
 @media print {
+  @page {
+    size: A4 portrait;
+    margin: 18mm 22mm 18mm 22mm; /* Tells Chromium to map exact physical margins */
+  }
+
   .cpr-overlay {
     position: static;
     background: white;
-    padding: 0;
+    padding: 0 !important;
+    margin: 0 !important;
     overflow: visible;
   }
 
@@ -413,11 +431,15 @@
   .no-print { display: none !important; }
 
   .legal-doc {
-    box-shadow: none;
-    border-radius: 0;
-    padding: 20mm 24mm 24mm;
-    max-width: 100%;
-    font-size: 11pt;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important; /* Prevent double-padding from squishing the layout */
+    margin: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+    font-size: 11pt !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   .legal-section { page-break-inside: avoid; }
@@ -433,7 +455,7 @@
   }
   .legal-doc-header  { flex-direction: column; }
   .legal-doc-header-right { text-align: left; }
-  .doc-sig-grid      { grid-template-columns: 1fr; }
-  .doc-sig-row       { grid-template-columns: 1fr; }
+  .doc-sig-grid      { flex-direction: column; }
+  .doc-sig-row       { flex-direction: column; }
   .legal-doc-title   { font-size: 16pt; letter-spacing: 1.5px; }
 }

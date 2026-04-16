@@ -5,7 +5,7 @@ export default function Header() {
     <header className="header no-print">
       <div className="header-brand">
         <img
-          src="/logo.png"
+          src="./logo.png"
           alt="VisualX Technologies"
           className="header-logo-img"
         />

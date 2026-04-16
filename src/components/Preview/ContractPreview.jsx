@@ -111,7 +111,7 @@ export default function ContractPreview({ onClose }) {
 
         {/* ── Document Header ────────────────────── */}
         <div className="legal-doc-header">
-          <img src="/logo.png" alt="VisualX Technologies" className="legal-doc-logo" />
+          <img src="./logo.png" alt="VisualX Technologies" className="legal-doc-logo" />
           <div className="legal-doc-header-right">
             <div className="legal-doc-ref">Agreement No.: {fill(meta.agreementNo, 'VXT/SA/________')}</div>
             <div className="legal-doc-ref">Date: {meta.executionDate ? formatDate(meta.executionDate) : '____________________'}</div>
