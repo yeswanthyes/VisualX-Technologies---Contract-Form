@@ -9,7 +9,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "electron:dev": "concurrently -k \"cross-env BROWSER=none npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
-    "electron:build": "electron-builder",
+    "electron:build": "electron-packager . \"VisualX Contract Generator\" --platform=win32 --arch=x64 --out=release --overwrite --icon=public/logo.png",
     "dist": "npm run build && npm run electron:build"
   },
   "dependencies": {
@@ -24,6 +24,7 @@
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
     "electron": "^41.2.1",
+    "electron-packager": "^17.1.2",
     "vite": "^5.4.2",
     "wait-on": "^9.0.5"
   },
