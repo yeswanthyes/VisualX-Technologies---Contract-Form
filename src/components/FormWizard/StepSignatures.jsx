@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useContract } from '../../context/ContractContext';
 import { InputField } from '../UI/index.jsx';
 import './FormSteps.css';
@@ -5,16 +6,34 @@ import './FormSteps.css';
 function SignatureFields({ prefix, title, badgeClass, badgeLabel }) {
   const { state, dispatch } = useContract();
   const sig = state.signatures[prefix];
+  const fileInputRef = useRef(null);
 
   const update = (field) => (e) =>
     dispatch({ type: 'UPDATE_FIELD', path: ['signatures', prefix, field], value: e.target.value });
 
+  const handleSignatureUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      dispatch({ type: 'UPDATE_FIELD', path: ['signatures', prefix, 'signatureImage'], value: evt.target.result });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const clearSignature = () => {
+    dispatch({ type: 'UPDATE_FIELD', path: ['signatures', prefix, 'signatureImage'], value: '' });
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
   return (
-    <div className="step-subsection">
+    <div className="step-subsection" style={{ marginBottom: 'var(--space-5)' }}>
       <div className="step-subsection-title">
         <span className={`party-badge ${badgeClass}`}>{badgeLabel}</span>
         {title}
       </div>
+
+      {/* Text fields */}
       <div className="grid-2">
         <InputField
           label="Full Name"
@@ -47,6 +66,44 @@ function SignatureFields({ prefix, title, badgeClass, badgeLabel }) {
           placeholder="e.g., Chennai, Tamil Nadu"
         />
       </div>
+
+      {/* Signature Upload */}
+      <div className="field-group">
+        <label className="field-label">Upload Signature (Optional)</label>
+        <div className="sig-upload-area" onClick={() => fileInputRef.current?.click()}>
+          {sig.signatureImage ? (
+            <div className="sig-upload-preview">
+              <img
+                src={sig.signatureImage}
+                alt="Uploaded signature"
+                className="sig-preview-img"
+              />
+              <button
+                type="button"
+                className="sig-clear-btn"
+                onClick={(e) => { e.stopPropagation(); clearSignature(); }}
+              >
+                ✕ Remove
+              </button>
+            </div>
+          ) : (
+            <div className="sig-upload-placeholder">
+              <div className="sig-upload-icon">✍️</div>
+              <div className="sig-upload-text">Click to upload signature image</div>
+              <div className="sig-upload-hint">PNG, JPG, SVG — transparent background recommended</div>
+            </div>
+          )}
+        </div>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/png,image/jpeg,image/svg+xml,image/gif"
+          onChange={handleSignatureUpload}
+          style={{ display: 'none' }}
+          id={`sig-upload-${prefix}`}
+        />
+        <span className="field-hint">Signature will appear in the printed/exported agreement.</span>
+      </div>
     </div>
   );
 }
@@ -56,7 +113,7 @@ export default function StepSignatures() {
     <div className="step-enter">
       <div className="info-box">
         <span className="info-box-icon">✍️</span>
-        <span>Enter signatory details for both parties. The signature lines and seal placeholders will appear in the generated PDF agreement.</span>
+        <span>Enter signatory details and optionally upload a signature image. If provided, the signature will be embedded directly in the exported PDF agreement.</span>
       </div>
 
       <div className="step-section">
@@ -90,7 +147,7 @@ export default function StepSignatures() {
           Agreement Ready!
         </div>
         <div style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)' }}>
-          Click <strong style={{ color: 'var(--color-accent-hover)' }}>"Preview & Export"</strong> to review the complete agreement and download it as a PDF.
+          Click <strong style={{ color: 'var(--color-accent-hover)' }}>"Preview &amp; Export PDF"</strong> to review the complete agreement and download it as a professionally formatted PDF document.
         </div>
       </div>
     </div>

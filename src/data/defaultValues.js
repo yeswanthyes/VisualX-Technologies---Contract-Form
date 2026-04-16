@@ -155,8 +155,8 @@ export const defaultValues = {
 
   // ─── Step 12: Signatures ──────────────────────────────────
   signatures: {
-    company: { name: '', designation: '', date: '', place: '' },
-    client: { name: '', designation: '', date: '', place: '' },
+    company: { name: '', designation: '', date: '', place: '', signatureImage: '' },
+    client: { name: '', designation: '', date: '', place: '', signatureImage: '' },
   },
 
   // ─── Meta ─────────────────────────────────────────────────

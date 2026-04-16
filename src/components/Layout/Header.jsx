@@ -4,9 +4,12 @@ export default function Header() {
   return (
     <header className="header no-print">
       <div className="header-brand">
-        <div className="header-logo-mark">VX</div>
+        <img
+          src="/logo.png"
+          alt="VisualX Technologies"
+          className="header-logo-img"
+        />
         <div className="header-brand-text">
-          <span className="header-company-name">VisualX Technologies</span>
           <span className="header-tagline">Service Agreement Generator</span>
         </div>
       </div>

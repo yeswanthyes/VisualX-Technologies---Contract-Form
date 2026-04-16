@@ -22,21 +22,12 @@
   text-decoration: none;
 }
 
-.header-logo-mark {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, #3b82f6, #06b6d4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 1.1rem;
-  color: white;
-  letter-spacing: -0.05em;
-  font-family: var(--font-body);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+.header-logo-img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
   flex-shrink: 0;
+  filter: brightness(1.05);
 }
 
 .header-brand-text {

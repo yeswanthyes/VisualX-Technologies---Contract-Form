@@ -8,6 +8,10 @@ const ContractContext = createContext(null);
 function contractReducer(state, action) {
   switch (action.type) {
     case 'UPDATE_SECTION': {
+      // If existing state for section is an array, replace with payload directly
+      if (Array.isArray(action.payload)) {
+        return { ...state, [action.section]: action.payload };
+      }
       return {
         ...state,
         [action.section]: {
@@ -17,12 +21,21 @@ function contractReducer(state, action) {
       };
     }
     case 'UPDATE_FIELD': {
-      // action.path = ['section', 'field'] or ['section', 'subsection', 'field']
+      // action.path = ['section'] for top-level replacement, ['section','field'], or ['section','sub','field']
       const [section, ...rest] = action.path;
+      if (rest.length === 0) {
+        // Top-level replacement (e.g., techStack array)
+        return { ...state, [section]: action.value };
+      }
       if (rest.length === 1) {
+        const existing = state[section];
+        if (Array.isArray(existing)) {
+          // shouldn't happen but safe fallback
+          return { ...state, [section]: action.value };
+        }
         return {
           ...state,
-          [section]: { ...state[section], [rest[0]]: action.value },
+          [section]: { ...existing, [rest[0]]: action.value },
         };
       }
       if (rest.length === 2) {
