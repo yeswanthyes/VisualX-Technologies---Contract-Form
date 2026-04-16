@@ -1,0 +1,276 @@
+/* Contract Preview — Legal Document Style */
+.contract-preview-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  padding: var(--space-6) var(--space-4);
+}
+
+.contract-preview-toolbar {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.contract-preview-toolbar-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.contract-preview-toolbar-actions {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+/* ─── Legal Document ─────────────────────────────────────── */
+.contract-document {
+  width: 100%;
+  max-width: 900px;
+  background: #ffffff;
+  color: #1a1a1a;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  padding: 60px 70px;
+  margin-bottom: var(--space-8);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 12pt;
+  line-height: 1.8;
+}
+
+/* ─── Document Header ─ */
+.doc-title {
+  font-size: 22pt;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+  border-bottom: 3px double #1a1a2e;
+  padding-bottom: 16px;
+}
+
+.doc-meta {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0 32px;
+  font-size: 10pt;
+  color: #555;
+  font-family: 'Arial', sans-serif;
+}
+
+.doc-intro {
+  margin-bottom: 28px;
+  text-align: justify;
+  font-size: 11pt;
+}
+
+/* ─── Sections ─ */
+.doc-section {
+  margin-bottom: 28px;
+  page-break-inside: avoid;
+}
+
+.doc-section-number {
+  font-size: 13pt;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-left: 4px solid #1a1a2e;
+  padding-left: 12px;
+}
+
+.doc-subsection-title {
+  font-size: 11pt;
+  font-weight: 700;
+  color: #2c2c4a;
+  margin: 14px 0 8px;
+  text-decoration: underline;
+}
+
+.doc-paragraph {
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+.doc-list {
+  margin: 8px 0 10px 24px;
+}
+
+.doc-list li {
+  margin-bottom: 6px;
+}
+
+/* ─── Tables ─ */
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0 16px;
+  font-size: 10pt;
+  font-family: 'Arial', sans-serif;
+}
+
+.doc-table th {
+  background: #1a1a2e;
+  color: white;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.doc-table td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+
+.doc-table tr:nth-child(even) td {
+  background: #f8f9fa;
+}
+
+/* ─── Signature Block ─ */
+.doc-signature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.doc-signature-block {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.doc-signature-block-title {
+  font-weight: 700;
+  font-size: 10pt;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #1a1a2e;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.doc-sig-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 14px;
+}
+
+.doc-sig-label {
+  font-size: 8pt;
+  color: #888;
+  font-family: 'Arial', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.doc-sig-value {
+  border-bottom: 1px solid #555;
+  padding-bottom: 3px;
+  min-height: 24px;
+  font-size: 11pt;
+  color: #1a1a1a;
+}
+
+.doc-sig-blank {
+  border-bottom: 1px solid #aaa;
+  min-height: 50px;
+  margin: 16px 0 8px;
+}
+
+/* ─── Annexure ─ */
+.doc-annexure-divider {
+  border: none;
+  border-top: 3px double #1a1a2e;
+  margin: 40px 0;
+}
+
+.doc-annexure-title {
+  font-size: 16pt;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #1a1a2e;
+  margin: 20px 0 8px;
+}
+
+.doc-annexure-sub {
+  text-align: center;
+  font-size: 10pt;
+  color: #555;
+  margin-bottom: 28px;
+  font-style: italic;
+}
+
+/* ─── Footer ─ */
+.doc-footer {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  font-size: 8pt;
+  color: #aaa;
+  font-family: 'Arial', sans-serif;
+}
+
+/* ─── Export loading ─ */
+.export-loading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.export-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* ─── Print ─ */
+@media print {
+  .contract-preview-overlay {
+    position: static;
+    background: white;
+    padding: 0;
+  }
+  .contract-preview-toolbar { display: none; }
+  .contract-document {
+    box-shadow: none;
+    padding: 20mm 25mm;
+    max-width: 100%;
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .contract-document { padding: 24px 20px; }
+  .doc-signature-grid { grid-template-columns: 1fr; }
+}
