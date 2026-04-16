@@ -157,6 +157,3 @@ VisualX Technologies is a software company specialising in web development, web 
 
 ---
 
-## 📄 License
-
-[MIT](LICENSE) © 2024 VisualX Technologies
